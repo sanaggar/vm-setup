@@ -9,6 +9,9 @@ set -e
 sudo apt update
 sudo apt upgrade -y
 
+# wireshark asks interactively whether non-root users may capture; pre-answer it
+echo "wireshark-common wireshark-common/install-setuid boolean true" | sudo debconf-set-selections
+
 # --- 2. base tools ----------------------------------------------------------
 sudo apt install -y \
     wget curl ca-certificates gnupg \
@@ -67,4 +70,4 @@ sudo chsh -s "$(which zsh)" "$USER"
 echo
 echo "=== vm-setup.sh done ==="
 echo "Log out and back in to activate zsh and the docker group."
-echo "Check: docker run --rm hello-world   /   echo \$SHELL"
+echo "Check (run each separately): docker run --rm hello-world   then   echo \$SHELL"
